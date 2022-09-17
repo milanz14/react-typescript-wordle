@@ -8,7 +8,17 @@ interface GuessLineProps {
 
 const GuessLine = ({ guess }: GuessLineProps) => {
   const squares = [];
-  return <h2>Test</h2>;
+
+  for (let i = 0; i < WORD_LENGTH; i++) {
+    const letter = guess[i];
+    squares.push(
+      <div className="square" key={i}>
+        {letter}
+      </div>
+    );
+  }
+
+  return <div className="line">{squares}</div>;
 };
 
 export default GuessLine;
