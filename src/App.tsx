@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './App.css';
 
@@ -6,16 +6,17 @@ import {words} from "./data/words"
 
 function App() {
 
+  const [ gameWord, setGameWord ] = useState('')
+
   useEffect(() => {
     const randIdx = Math.floor(Math.random() * words.length)
     const randWord = words[randIdx]
-    console.log(randWord)
-
+    setGameWord(randWord)
   },[])
 
   return (
     <div className="App">
-     <h1>Placeholder</h1>
+     {gameWord}
     </div>
   );
 }
