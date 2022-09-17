@@ -33,11 +33,13 @@ function App(): JSX.Element {
       guessedWordRef.current = wordForGuess;
     }
     checkGuessedWord();
+    guessInputRef.current!.value = "";
   };
 
   const checkGuessedWord = () => {
-    console.log(guessedWordRef.current);
-    console.log(gameWordRef.current);
+    if (guessedWordRef.current === gameWordRef.current) {
+      alert("WINNER");
+    }
   };
 
   return (
