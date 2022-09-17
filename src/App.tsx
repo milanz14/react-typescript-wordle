@@ -9,6 +9,7 @@ function App(): JSX.Element {
   const [guesses, setGuesses] = useState(Array(6).fill(""));
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean>(false);
 
   const guessInputRef = useRef<HTMLInputElement>(null);
   const gameWordRef = useRef<string | null>(null);
@@ -30,7 +31,7 @@ function App(): JSX.Element {
     } else if (wordForGuess.length !== 6) {
       alert("Must be 6 letter word.");
     } else if (words.indexOf(wordForGuess) === -1) {
-      return;
+      alert("Currently not a valid word in the list of possible words");
     } else {
       guessedWordRef.current = wordForGuess;
       checkGuessedWord();
@@ -41,6 +42,7 @@ function App(): JSX.Element {
   const checkGuessedWord = (): void => {
     if (guessedWordRef.current === gameWordRef.current) {
       handleGuesses();
+      setIsCorrectAnswer(true);
       setIsGameOver(true);
       return;
     }
@@ -49,16 +51,14 @@ function App(): JSX.Element {
 
   const handleGuesses = (): void => {
     setCount((count) => count + 1);
+
     const newGuesses = [...guesses];
     newGuesses[guesses.findIndex((val) => val === "")] = guessedWordRef.current;
     setGuesses(newGuesses);
-  };
-
-  const handleGameReset = () => {
-    guessedWordRef.current = "";
-    setGuesses(Array(6).fill(""));
-    setIsGameOver(false);
-    setCount(0);
+    if (count === 5) {
+      setIsGameOver(true);
+      return;
+    }
   };
 
   return (
@@ -89,10 +89,17 @@ function App(): JSX.Element {
           );
         })}
       </div>
-      {isGameOver && (
+      {isGameOver && isCorrectAnswer && (
         <div>
-          <p>It took you {count} tries!</p>
-          <button onClick={handleGameReset}>Reset</button>
+          <p>
+            Correct! It took you {count} {count > 1 ? "tries" : "try"}
+          </p>
+        </div>
+      )}
+      {isGameOver && !isCorrectAnswer && (
+        <div>
+          <p>Out of tries! Sorry!</p>
+          <p>The world was {gameWord}</p>
         </div>
       )}
     </div>
