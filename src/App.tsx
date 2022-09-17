@@ -6,43 +6,38 @@ import GuessLine from "./components/GuessLine";
 
 function App(): JSX.Element {
   const [gameWord, setGameWord] = useState("");
-  const [guessedWord, setGuessedWord] = useState("");
   const [guesses, setGuesses] = useState(Array(6).fill(null));
 
   const guessInputRef = useRef<HTMLInputElement>(null);
-  const gameWordRef = useRef("");
+  const gameWordRef = useRef<string | null>(null);
+  const guessedWordRef = useRef<string | null>(null);
 
   // save a random word on app mount
   useEffect(() => {
-    const makeGameWord = () => {
-      const randIdx = Math.floor(Math.random() * words.length);
-      const randWord = words[randIdx];
-      setGameWord(randWord);
-      gameWordRef.current = randWord;
-    };
-    makeGameWord();
+    const randIdx = Math.floor(Math.random() * words.length);
+    const randWord = words[randIdx];
+    gameWordRef.current! = randWord;
+    setGameWord(randWord);
   }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    // console.log(guessInputRef.current!.value);
     const wordForGuess: string = guessInputRef.current!.value;
     if (!wordForGuess) {
-      alert("Must be a valid guess");
+      alert("Must be a valid guess.");
     } else if (wordForGuess.length !== 6) {
-      alert("Must be 6 letter word");
+      alert("Must be 6 letter word.");
     } else if (words.indexOf(wordForGuess) === -1) {
-      alert("Not a valid 6 letter word");
+      alert("Not a valid 6 letter word option.");
     } else {
-      setGuessedWord(wordForGuess);
+      guessedWordRef.current = wordForGuess;
     }
     checkGuessedWord();
-    // guessInputRef.current!.value = "";
   };
 
   const checkGuessedWord = () => {
-    console.log(guessedWord);
-    console.log(gameWordRef);
+    console.log(guessedWordRef.current);
+    console.log(gameWordRef.current);
   };
 
   return (
