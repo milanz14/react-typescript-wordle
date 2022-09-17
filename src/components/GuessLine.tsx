@@ -6,7 +6,7 @@ interface GuessLineProps {
   guess: string;
 }
 
-const GuessLine = ({ guess }: GuessLineProps) => {
+const GuessLine = ({ guess }: GuessLineProps): JSX.Element => {
   const squares = [];
 
   for (let i = 0; i < WORD_LENGTH; i++) {
