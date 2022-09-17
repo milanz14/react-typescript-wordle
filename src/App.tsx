@@ -99,7 +99,7 @@ function App(): JSX.Element {
       {isGameOver && !isCorrectAnswer && (
         <div>
           <p>Out of tries! Sorry!</p>
-          <p>The world was {gameWord}</p>
+          <p>The word was {gameWord}.</p>
         </div>
       )}
     </div>
