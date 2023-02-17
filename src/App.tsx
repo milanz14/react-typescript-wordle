@@ -1,8 +1,10 @@
 import { useEffect, useState, useRef } from "react";
+import { Heading, Input, Button, Stack } from "@chakra-ui/react";
 import "./App.css";
 import { words } from "./data/words";
 
 import GuessLine from "./components/GuessLine";
+import Header from "./components/Header";
 
 function App(): JSX.Element {
   const [gameWord, setGameWord] = useState<string>("");
@@ -21,6 +23,7 @@ function App(): JSX.Element {
     const randWord = words[randIdx];
     gameWordRef.current! = randWord;
     setGameWord(randWord);
+    console.log(words.length);
   }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -61,19 +64,30 @@ function App(): JSX.Element {
     }
   };
 
+  const handleResetGame = () => {
+    console.log("resetting the game");
+  };
+
   return (
     <div className="App">
-      <h2>6Wordle</h2>
+      <Header />
       <form className="guessesInput" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Input guess... "
-          ref={guessInputRef}
-          disabled={isGameOver}
-        />
-        <button type="submit" disabled={isGameOver}>
-          Check Guess
-        </button>
+        <Stack direction="row" align="center" justify="center">
+          <Input
+            type="text"
+            placeholder="Input guess... "
+            ref={guessInputRef}
+            disabled={isGameOver}
+            className="guess"
+          />
+          <Button
+            type="submit"
+            isDisabled={isGameOver}
+            colorScheme="purple"
+            className="btn">
+            Check Guess
+          </Button>
+        </Stack>
       </form>
       <div className="gameboard">
         {guesses.map((guess: string, idx) => {
@@ -97,9 +111,18 @@ function App(): JSX.Element {
         </div>
       )}
       {isGameOver && !isCorrectAnswer && (
-        <div>
+        <div className="results-container">
           <p>Out of tries! Sorry!</p>
-          <p>The word was {gameWord}.</p>
+          <p>
+            The word was <span className="word">{gameWord.toUpperCase()}</span>
+          </p>
+          <Button
+            type="button"
+            colorScheme="red"
+            className="reset-btn"
+            onClick={handleResetGame}>
+            <span>Reset</span>
+          </Button>
         </div>
       )}
     </div>
