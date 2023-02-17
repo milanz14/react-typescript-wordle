@@ -1,12 +1,6 @@
-import React from "react";
+import { GuessLineProps } from "../types/interfaces";
 
 const WORD_LENGTH = 6;
-
-interface GuessLineProps {
-  guess: string;
-  isFinal: boolean;
-  solution: string;
-}
 
 const GuessLine = ({
   guess,
