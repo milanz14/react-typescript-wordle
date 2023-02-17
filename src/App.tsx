@@ -29,8 +29,9 @@ function App(): JSX.Element {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const wordForGuess: string = guessInputRef.current!.value;
+    // TODO: Change these alerts to Modals
     if (!wordForGuess) {
-      alert("Must be a valid guess.");
+      alert("You must provide a guess!");
     } else if (wordForGuess.length !== 6) {
       alert("Must be 6 letter word.");
     } else if (words.indexOf(wordForGuess) === -1) {
@@ -88,7 +89,7 @@ function App(): JSX.Element {
             size="lg"
             variant="outline"
             className="btn">
-            Check Guess
+            Guess
           </Button>
         </Stack>
       </form>
