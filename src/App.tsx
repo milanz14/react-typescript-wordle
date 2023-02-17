@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { Heading, Input, Button, Stack } from "@chakra-ui/react";
-import "./App.css";
+import { Alert, Input, Button, Stack } from "@chakra-ui/react";
+import "./styles/App.css";
 import { words } from "./data/words";
 
 import GuessLine from "./components/GuessLine";
@@ -74,16 +74,19 @@ function App(): JSX.Element {
       <form className="guessesInput" onSubmit={handleSubmit}>
         <Stack direction="row" align="center" justify="center">
           <Input
-            type="text"
+            variant="outline"
             placeholder="Input guess... "
             ref={guessInputRef}
             disabled={isGameOver}
             className="guess"
+            size="lg"
           />
           <Button
             type="submit"
             isDisabled={isGameOver}
             colorScheme="purple"
+            size="lg"
+            variant="outline"
             className="btn">
             Check Guess
           </Button>
