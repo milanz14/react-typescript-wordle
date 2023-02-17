@@ -49,6 +49,7 @@
 
 .correct {
   background-color: lightgreen;
+  border: 2px solid green;
   position: relative;
   overflow: hidden;
 }
@@ -75,6 +76,7 @@
 
 .close {
   background-color: rgb(251, 251, 114);
+  border: 2px solid yellow;
   position: relative;
   overflow: hidden;
 }

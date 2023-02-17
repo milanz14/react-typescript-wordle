@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Alert, Input, Button, Stack } from "@chakra-ui/react";
+import { Input, Button, Stack } from "@chakra-ui/react";
 import "./styles/App.css";
 import { words } from "./data/words";
 
@@ -12,6 +12,7 @@ function App(): JSX.Element {
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean>(false);
+  const [isGameRestarted, setIsGameRestarted] = useState<boolean>(false);
 
   const guessInputRef = useRef<HTMLInputElement>(null);
   const gameWordRef = useRef<string | null>(null);
@@ -24,7 +25,7 @@ function App(): JSX.Element {
     gameWordRef.current! = randWord;
     setGameWord(randWord);
     console.log(words.length);
-  }, []);
+  }, [isGameRestarted]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -48,6 +49,7 @@ function App(): JSX.Element {
       handleGuesses();
       setIsCorrectAnswer(true);
       setIsGameOver(true);
+      setIsGameRestarted(false);
       return;
     }
     handleGuesses();
@@ -61,12 +63,17 @@ function App(): JSX.Element {
     setGuesses(newGuesses);
     if (count === 5) {
       setIsGameOver(true);
+      setIsGameRestarted(false);
       return;
     }
   };
 
   const handleResetGame = () => {
-    console.log("resetting the game");
+    setGuesses(Array(6).fill(""));
+    setIsGameOver(false);
+    setIsCorrectAnswer(false);
+    setCount(0);
+    setIsGameRestarted(true);
   };
 
   return (
