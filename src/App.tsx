@@ -63,21 +63,17 @@ function App(): JSX.Element {
     setGuesses(newGuesses);
     if (count === 5) {
       setIsGameOver(true);
-      setIsGameRestarted(false);
       return;
     }
   };
 
   const handleResetGame = () => {
-    setGuesses(Array(6).fill(""));
-    setIsGameOver(false);
-    setIsCorrectAnswer(false);
-    setCount(0);
-    setIsGameRestarted(true);
+    window.location.reload();
   };
 
   return (
     <div className="App">
+      {gameWord}
       <Header />
       <form className="guessesInput" onSubmit={handleSubmit}>
         <Stack direction="row" align="center" justify="center">
@@ -94,14 +90,13 @@ function App(): JSX.Element {
             isDisabled={isGameOver}
             colorScheme="purple"
             size="lg"
-            variant="outline"
             className="btn">
             Guess
           </Button>
         </Stack>
       </form>
       <div className="gameboard">
-        {guesses.map((guess: string, idx) => {
+        {guesses.map((guess: string, idx: number) => {
           const isCurrentGuess =
             idx === guesses.findIndex((val) => val === null);
           return (
@@ -119,6 +114,13 @@ function App(): JSX.Element {
           <p>
             Correct! It took you {count} {count > 1 ? "tries" : "try"}
           </p>
+          <Button
+            type="button"
+            colorScheme="red"
+            className="reset-btn"
+            onClick={handleResetGame}>
+            <span>Reset</span>
+          </Button>
         </div>
       )}
       {isGameOver && !isCorrectAnswer && (

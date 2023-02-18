@@ -4,7 +4,7 @@ import { Box, Heading } from "@chakra-ui/react";
 
 import HeaderStats from "./HeaderStats";
 
-const Header = () => {
+const Header = (): JSX.Element => {
   return (
     <Box>
       <Heading className="header">6Wordle</Heading>

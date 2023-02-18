@@ -1,12 +1,11 @@
-import { Stat, StatLabel, StatNumber } from "@chakra-ui/react";
+import { Stat, StatLabel } from "@chakra-ui/react";
 
 import { words } from "../data/words";
 
-const HeaderStats = () => {
+const HeaderStats = (): JSX.Element => {
   return (
     <Stat>
-      <StatLabel>Current # Of words in Library:</StatLabel>
-      <StatNumber>{words.length}</StatNumber>
+      <StatLabel>Current # Of words in Library: {words.length}</StatLabel>
     </Stat>
   );
 };
