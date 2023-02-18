@@ -73,7 +73,6 @@ function App(): JSX.Element {
 
   return (
     <div className="App">
-      {gameWord}
       <Header />
       <form className="guessesInput" onSubmit={handleSubmit}>
         <Stack direction="row" align="center" justify="center">
