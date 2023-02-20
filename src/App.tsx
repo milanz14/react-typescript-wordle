@@ -6,6 +6,10 @@ import { words } from "./data/words";
 import GuessLine from "./components/GuessLine";
 import Header from "./components/Header";
 
+import lose from "./assets/fx/lose.mp3";
+import submit from "./assets/fx/submit.mp3";
+import win from "./assets/fx/submit.mp3";
+
 function App(): JSX.Element {
   const [gameWord, setGameWord] = useState<string>("");
   const [guesses, setGuesses] = useState(Array(6).fill(""));
