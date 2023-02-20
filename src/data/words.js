@@ -129,6 +129,7 @@ export const words = [
   "dinner",
   "direct",
   "divide",
+  "diving",
   "doctor",
   "dollar",
   "domain",
