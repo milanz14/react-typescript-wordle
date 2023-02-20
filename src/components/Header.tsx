@@ -7,7 +7,7 @@ import HeaderStats from "./HeaderStats";
 const Header = (): JSX.Element => {
   return (
     <Box>
-      <Heading className="header" size="4xl">
+      <Heading className="header" size="2xl">
         6Wordle
       </Heading>
       <HeaderStats />
