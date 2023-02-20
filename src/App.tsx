@@ -1,6 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { Input, Button, Stack } from "@chakra-ui/react";
+import { Howl, Howler } from "howler";
+
 import "./styles/App.css";
+
 import { words } from "./data/words";
 
 import GuessLine from "./components/GuessLine";
