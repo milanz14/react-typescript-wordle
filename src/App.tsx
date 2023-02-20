@@ -32,7 +32,6 @@ function App(): JSX.Element {
     const randWord = words[randIdx];
     gameWordRef.current! = randWord;
     setGameWord(randWord);
-    console.log(words.length);
   }, []);
 
   const soundSubmit = new Howl({
