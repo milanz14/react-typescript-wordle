@@ -11,7 +11,7 @@ import Header from "./components/Header";
 
 import lose from "./assets/fx/lose.mp3";
 import submit from "./assets/fx/submit.mp3";
-import win from "./assets/fx/submit.mp3";
+import win from "./assets/fx/win.mp3";
 
 function App(): JSX.Element {
   const [gameWord, setGameWord] = useState<string>("");
@@ -24,6 +24,8 @@ function App(): JSX.Element {
   const gameWordRef = useRef<string | null>(null);
   const guessedWordRef = useRef<string>("");
 
+  Howler.volume(0.05);
+
   // save a random word on app mount
   useEffect(() => {
     const randIdx = Math.floor(Math.random() * words.length);
@@ -32,6 +34,18 @@ function App(): JSX.Element {
     setGameWord(randWord);
     console.log(words.length);
   }, []);
+
+  const soundSubmit = new Howl({
+    src: submit,
+  });
+
+  const soundLose = new Howl({
+    src: lose,
+  });
+
+  const soundWin = new Howl({
+    src: win,
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -47,6 +61,7 @@ function App(): JSX.Element {
       guessedWordRef.current = wordForGuess;
       checkGuessedWord();
     }
+    soundSubmit.play();
     guessInputRef.current!.value = "";
   };
 
@@ -54,6 +69,7 @@ function App(): JSX.Element {
     if (guessedWordRef.current === gameWordRef.current) {
       handleGuesses();
       setIsCorrectAnswer(true);
+      soundWin.play();
       setIsGameOver(true);
       return;
     }
@@ -67,6 +83,7 @@ function App(): JSX.Element {
     newGuesses[guesses.findIndex((val) => val === "")] = guessedWordRef.current;
     setGuesses(newGuesses);
     if (count === 5) {
+      soundLose.play();
       setIsGameOver(true);
       return;
     }
