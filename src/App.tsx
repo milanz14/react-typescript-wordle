@@ -95,26 +95,63 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <Header />
-      <form className="guessesInput" onSubmit={handleSubmit}>
-        <Stack direction="row" align="center" justify="center">
-          <Input
-            variant="outline"
-            placeholder="Input guess... "
-            ref={guessInputRef}
-            disabled={isGameOver}
-            className="guess"
-            size="lg"
-          />
-          <Button
-            type="submit"
-            isDisabled={isGameOver}
-            colorScheme="purple"
-            size="lg"
-            className="btn">
-            Guess
-          </Button>
-        </Stack>
-      </form>
+      {!isGameOver ? (
+        <>
+          <form className="guessesInput" onSubmit={handleSubmit}>
+            <Stack direction="row" align="center" justify="center">
+              <Input
+                variant="outline"
+                placeholder="Input guess... "
+                ref={guessInputRef}
+                disabled={isGameOver}
+                className="guess"
+                size="lg"
+              />
+              <Button
+                type="submit"
+                isDisabled={isGameOver}
+                colorScheme="purple"
+                size="lg"
+                className="btn">
+                Guess
+              </Button>
+            </Stack>
+          </form>
+        </>
+      ) : (
+        <>
+          {isGameOver && isCorrectAnswer && (
+            <div>
+              <p>
+                Correct! It took you {count} {count > 1 ? "tries" : "try"}
+              </p>
+              <Button
+                type="button"
+                colorScheme="red"
+                className="reset-btn"
+                onClick={handleResetGame}>
+                <span>Reset</span>
+              </Button>
+            </div>
+          )}
+          {isGameOver && !isCorrectAnswer && (
+            <div className="results-container">
+              <p>Out of tries! Sorry!</p>
+              <p>
+                The word was{" "}
+                <span className="word">{gameWord.toUpperCase()}</span>
+              </p>
+              <Button
+                type="button"
+                colorScheme="red"
+                className="reset-btn"
+                onClick={handleResetGame}>
+                <span>Reset</span>
+              </Button>
+            </div>
+          )}
+        </>
+      )}
       <div className="gameboard">
         {guesses.map((guess: string, idx: number) => {
           const isCurrentGuess =
@@ -129,35 +166,6 @@ function App(): JSX.Element {
           );
         })}
       </div>
-      {isGameOver && isCorrectAnswer && (
-        <div>
-          <p>
-            Correct! It took you {count} {count > 1 ? "tries" : "try"}
-          </p>
-          <Button
-            type="button"
-            colorScheme="red"
-            className="reset-btn"
-            onClick={handleResetGame}>
-            <span>Reset</span>
-          </Button>
-        </div>
-      )}
-      {isGameOver && !isCorrectAnswer && (
-        <div className="results-container">
-          <p>Out of tries! Sorry!</p>
-          <p>
-            The word was <span className="word">{gameWord.toUpperCase()}</span>
-          </p>
-          <Button
-            type="button"
-            colorScheme="red"
-            className="reset-btn"
-            onClick={handleResetGame}>
-            <span>Reset</span>
-          </Button>
-        </div>
-      )}
     </div>
   );
 }
